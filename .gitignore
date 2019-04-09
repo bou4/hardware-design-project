@@ -1,6 +1,8 @@
-bd/
-.srcs/
-.Xil/
-out/
-vivado*.jou
-vivado*.log
+./bd/
+./out/
+
+./.srcs/
+./.Xil/
+
+./vivado*.jou
+./vivado*.log
