@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Environment') {
             steps {
-                sh 'set_env.sh'
+                sh './set_env.sh'
             }
         }
         stage('Build') {
