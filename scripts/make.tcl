@@ -1,11 +1,14 @@
 ################################################################
 # CREATE DIRECTORIES
 ################################################################
+set bdDir ./bd
+file mkdir $bdDir
+
 set outDir ./out
 file mkdir $outDir
 
-set bdDir ./bd
-file mkdir $bdDir
+set rptDir ./rpt
+file mkdir $rptDir
 
 ################################################################
 # SET TARGET PART
@@ -19,7 +22,7 @@ set_property SIMULATOR_LANGUAGE Verilog [current_project]
 ################################################################
 # CREATE CUSTOM IP CATALOG
 ################################################################
-set_property IP_REPO_PATHS {./ip} [current_project]
+set_property IP_REPO_PATHS ./ip [current_project]
 
 update_ip_catalog
 
@@ -43,6 +46,8 @@ source ./scripts/bd/microblaze.tcl
 ################################################################
 synth_design -top microblaze
 
+report_timing_summary -file $rptDir/post_synth_timing_summary.rpt
+
 ################################################################
 # RUN PLACEMENT AND LOGIC OPTIMIZATION
 ################################################################
@@ -51,14 +56,16 @@ power_opt_design
 place_design
 phys_opt_design
 
+report_timing_summary -file $rptDir/post_place_timing_summary.rpt
+
 ################################################################
 # RUN ROUTER
 ################################################################
 route_design
 
+report_timing_summary -file $rptDir/post_route_timing_summary.rpt
+
 ################################################################
 # EXPORT HARDWARE
 ################################################################
-write_bitstream -force $outDir/system.bit
-
-write_sysdef -bitfile $outDir/system.bit $outDir/system.sysdef
+write_bitstream $outDir/system.bit
