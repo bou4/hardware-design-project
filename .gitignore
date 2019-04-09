@@ -1,0 +1,6 @@
+.srcs/
+.Xil/
+output/
+vivado.jou
+vivado.log
+
