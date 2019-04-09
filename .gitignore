@@ -1,6 +1,6 @@
+bd/
 .srcs/
 .Xil/
-output/
-vivado.jou
-vivado.log
-
+out/
+vivado*.jou
+vivado*.log

@@ -1,9 +1,11 @@
 ################################################################
-# SET OUTPUT DIRECTORY
+# CREATE DIRECTORIES
 ################################################################
-set outputDir ./output
+set outDir ./out
+file mkdir $outDir
 
-file mkdir $outputDir
+set bdDir ./bd
+file mkdir $bdDir
 
 ################################################################
 # SET TARGET PART
@@ -17,14 +19,14 @@ set_property SIMULATOR_LANGUAGE Verilog [current_project]
 ################################################################
 # CREATE CUSTOM IP CATALOG
 ################################################################
-set_property IP_REPO_PATHS {./ip} [current_fileset]
+set_property IP_REPO_PATHS {./ip} [current_project]
 
 update_ip_catalog
 
 ################################################################
 # CREATE BLOCK DESIGNS
 ################################################################
-source ./bd/microblaze.tcl
+source ./scripts/bd/microblaze.tcl
 
 ################################################################
 # READ SOURCES
@@ -55,12 +57,8 @@ phys_opt_design
 route_design
 
 ################################################################
-# GENERATE A BITSTREAM
-################################################################
-write_bitstream -force $outputDir/system.bit
-
-################################################################
 # EXPORT HARDWARE
 ################################################################
-write_sysdef -bitfile $outputDir/system.bit $outputDir/system.sysdef
+write_bitstream -force $outDir/system.bit
 
+write_sysdef -bitfile $outDir/system.bit $outDir/system.sysdef
