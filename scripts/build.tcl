@@ -20,6 +20,11 @@ set_property TARGET_LANGUAGE Verilog [current_project]
 set_property SIMULATOR_LANGUAGE Verilog [current_project]
 
 ################################################################
+# SET SOURCE MANAGEMENT MODE
+################################################################
+set_property SOURCE_MGMT_MODE All [current_project]
+
+################################################################
 # CREATE CUSTOM IP CATALOG
 ################################################################
 set_property IP_REPO_PATHS ./ip [current_project]
@@ -27,45 +32,45 @@ set_property IP_REPO_PATHS ./ip [current_project]
 update_ip_catalog
 
 ################################################################
-# CREATE BLOCK DESIGNS
-################################################################
-source ./scripts/bd/microblaze.tcl
-
-################################################################
 # READ SOURCES
 ################################################################
-#read_verilog [glob ./hdl/*.v]
+read_verilog [glob ./hdl/*.v]
 
 ################################################################
 # READ CONSTRAINTS
 ################################################################
-#read_xdc [glob ./xdc/*.xdc]
+read_xdc [glob ./xdc/*.xdc]
+
+################################################################
+# CREATE BLOCK DESIGNS
+################################################################
+source ./scripts/bd/top.tcl
 
 ################################################################
 # RUN SYNTHESIS
 ################################################################
-synth_design -top microblaze
+#synth_design -top top
 
-report_timing_summary -file $rptDir/post_synth_timing_summary.rpt
+#report_timing_summary -file $rptDir/post_synth_timing_summary.rpt
 
 ################################################################
 # RUN PLACEMENT AND LOGIC OPTIMIZATION
 ################################################################
-opt_design
-power_opt_design
-place_design
-phys_opt_design
+#opt_design
+#power_opt_design
+#place_design
+#phys_opt_design
 
-report_timing_summary -file $rptDir/post_place_timing_summary.rpt
+#report_timing_summary -file $rptDir/post_place_timing_summary.rpt
 
 ################################################################
 # RUN ROUTER
 ################################################################
-route_design
+#route_design
 
-report_timing_summary -file $rptDir/post_route_timing_summary.rpt
+#report_timing_summary -file $rptDir/post_route_timing_summary.rpt
 
 ################################################################
 # EXPORT HARDWARE
 ################################################################
-write_bitstream $outDir/system.bit
+#write_bitstream $outDir/system.bit
