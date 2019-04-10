@@ -49,28 +49,30 @@ source ./scripts/bd/top.tcl
 ################################################################
 # RUN SYNTHESIS
 ################################################################
-#synth_design -top top
+synth_design -top top
 
-#report_timing_summary -file $rptDir/post_synth_timing_summary.rpt
+report_timing_summary -file $rptDir/post_synth_timing_summary.rpt
 
 ################################################################
 # RUN PLACEMENT AND LOGIC OPTIMIZATION
 ################################################################
-#opt_design
-#power_opt_design
-#place_design
-#phys_opt_design
+opt_design
+power_opt_design
+place_design
+phys_opt_design
 
-#report_timing_summary -file $rptDir/post_place_timing_summary.rpt
+report_timing_summary -file $rptDir/post_place_timing_summary.rpt
 
 ################################################################
 # RUN ROUTER
 ################################################################
-#route_design
+route_design
 
-#report_timing_summary -file $rptDir/post_route_timing_summary.rpt
+report_timing_summary -file $rptDir/post_route_timing_summary.rpt
+
+# TODO: Generate other useful reports
 
 ################################################################
 # EXPORT HARDWARE
 ################################################################
-#write_bitstream $outDir/system.bit
+write_bitstream $outDir/system.bit
