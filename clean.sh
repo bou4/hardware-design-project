@@ -1,3 +1,4 @@
+rm -rf .cache
 rm -rf .srcs
 rm -rf .Xil
 rm -rf bd

@@ -12,28 +12,9 @@ CONFIG.FREQ_HZ {300000000} \
 ] [get_bd_intf_ports default_sysclk1_300]
 
 # Create ports
-## GPIO LEDs
-#create_bd_port -dir O gpio_led_0
-#create_bd_port -dir O gpio_led_1
-#create_bd_port -dir O gpio_led_2
-#create_bd_port -dir O gpio_led_3
-#create_bd_port -dir O gpio_led_4
-#create_bd_port -dir O gpio_led_5
-#create_bd_port -dir O gpio_led_6
-#create_bd_port -dir O gpio_led_7
-
 ## Directional push buttons
-#create_bd_port -dir I gpio_sw_n
-#create_bd_port -dir I gpio_sw_e
-#create_bd_port -dir I gpio_sw_w
 create_bd_port -dir I gpio_sw_s
 create_bd_port -dir I gpio_sw_c
-
-## 4-pole DIP switch
-#create_bd_port -dir I gpio_dip_sw_0
-#create_bd_port -dir I gpio_dip_sw_1
-#create_bd_port -dir I gpio_dip_sw_2
-#create_bd_port -dir I gpio_dip_sw_3
 
 ## Differential reference clock inputs
 create_bd_port -dir I mgtrefclk0_x0y5_p
@@ -55,15 +36,6 @@ CONFIG.USE_BOARD_FLOW {true} \
 CONFIG.USE_LOCKED {false} \
 CONFIG.USE_RESET {false} \
 ] [get_bd_cells clk_wiz_0]
-
-# Create instance: debouncer_0
-create_bd_cell -type module -reference debouncer debouncer_0
-
-# Create instance: txpippm_controllers_0
-create_bd_cell -type module -reference txpippm_controllers txpippm_controllers_0
-
-# Create instance: gth_transceivers_buffer_0
-create_bd_cell -vlnv ugent.be:user:gth_transceivers_buffer:1.0 -type IP gth_transceivers_buffer_0
 
 # Create instance: vio_0, and set properties
 create_bd_cell -vlnv xilinx.com:ip:vio:3.0 -type IP vio_0
@@ -102,40 +74,22 @@ set_property -dict [list \
 CONFIG.NUM_PORTS {10} \
 ] [get_bd_cells xlconcat_0]
 
+# Create instance: debouncer_0
+create_bd_cell -type module -reference debouncer debouncer_0
+
+# Create instance: txpippm_controllers_0
+create_bd_cell -type module -reference txpippm_controllers txpippm_controllers_0
+
+# Create instance: gth_transceivers_buffer_0
+create_bd_cell -vlnv ugent.be:user:gth_transceivers_buffer:1.0 -type IP gth_transceivers_buffer_0
+
 # Create interface connections
-connect_bd_intf_net [get_bd_intf_ports default_sysclk1_300] [get_bd_intf_pins clk_wiz_0/CLK_IN1_D]	
+connect_bd_intf_net [get_bd_intf_pins clk_wiz_0/CLK_IN1_D] [get_bd_intf_ports default_sysclk1_300]
 
 # Create port connections
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_clk_freerun_in]
 
-connect_bd_net [get_bd_ports mgtrefclk0_x0y5_p] [get_bd_pins gth_transceivers_buffer_0/mgtrefclk0_x0y5_p]
-connect_bd_net [get_bd_ports mgtrefclk0_x0y5_n] [get_bd_pins gth_transceivers_buffer_0/mgtrefclk0_x0y5_n]
-
-connect_bd_net [get_bd_ports gpio_sw_c] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_in]
-
-connect_bd_net [get_bd_ports gthrxn] [get_bd_pins gth_transceivers_buffer_0/gthrxn_in]
-connect_bd_net [get_bd_ports gthrxp] [get_bd_pins gth_transceivers_buffer_0/gthrxp_in]
-connect_bd_net [get_bd_ports gthtxn] [get_bd_pins gth_transceivers_buffer_0/gthtxn_out]
-connect_bd_net [get_bd_ports gthtxp] [get_bd_pins gth_transceivers_buffer_0/gthtxp_out]
-
-connect_bd_net [get_bd_pins debouncer_0/clk] [get_bd_pins clk_wiz_0/clk_out1]
-connect_bd_net [get_bd_pins debouncer_0/reset] [get_bd_ports gpio_sw_c]
-connect_bd_net [get_bd_pins debouncer_0/button_in] [get_bd_ports gpio_sw_s] 
-connect_bd_net [get_bd_pins debouncer_0/button_out] [get_bd_pins txpippm_controllers_0/pulse_in]
-
-connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmen_out] [get_bd_pins gth_transceivers_buffer_0/txpippmen_in]
-connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmovrden_out] [get_bd_pins gth_transceivers_buffer_0/txpippmovrden_in]
-connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmsel_out] [get_bd_pins gth_transceivers_buffer_0/txpippmsel_in]
-connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmpd_out] [get_bd_pins gth_transceivers_buffer_0/txpippmpd_in]
-connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmstepsize_out] [get_bd_pins gth_transceivers_buffer_0/txpippmstepsize_in]
-
-connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_userclk_tx_usrclk_in] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk_out]
-connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_userclk_tx_active_in] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_active_out]
-
-connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_reset_all_in] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_out]
-
 connect_bd_net [get_bd_pins vio_0/clk] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk2_out]
-
 connect_bd_net [get_bd_pins vio_0/probe_out9] [get_bd_pins xlconcat_0/In9]
 connect_bd_net [get_bd_pins vio_0/probe_out8] [get_bd_pins xlconcat_0/In8]
 connect_bd_net [get_bd_pins vio_0/probe_out7] [get_bd_pins xlconcat_0/In7]
@@ -147,12 +101,33 @@ connect_bd_net [get_bd_pins vio_0/probe_out2] [get_bd_pins xlconcat_0/In2]
 connect_bd_net [get_bd_pins vio_0/probe_out1] [get_bd_pins xlconcat_0/In1]
 connect_bd_net [get_bd_pins vio_0/probe_out0] [get_bd_pins xlconcat_0/In0]
 
-connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userdata_tx_in]
-
 connect_bd_net [get_bd_pins vio_1/clk] [get_bd_pins clk_wiz_0/clk_out1]
-
 connect_bd_net [get_bd_pins vio_1/probe_out1] [get_bd_pins txpippm_controllers_0/stepsize_in]
 connect_bd_net [get_bd_pins vio_1/probe_out0] [get_bd_pins txpippm_controllers_0/sel_in]
+
+connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userdata_tx_in]
+
+connect_bd_net [get_bd_pins debouncer_0/clk] [get_bd_pins clk_wiz_0/clk_out1]
+connect_bd_net [get_bd_pins debouncer_0/reset] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_out]
+connect_bd_net [get_bd_pins debouncer_0/button_in] [get_bd_ports gpio_sw_s] 
+connect_bd_net [get_bd_pins debouncer_0/button_out] [get_bd_pins txpippm_controllers_0/pulse_in]
+
+connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_userclk_tx_usrclk_in] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk_out]
+connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_userclk_tx_active_in] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_active_out]
+connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_reset_all_in] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_out]
+connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmen_out] [get_bd_pins gth_transceivers_buffer_0/txpippmen_in]
+connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmovrden_out] [get_bd_pins gth_transceivers_buffer_0/txpippmovrden_in]
+connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmsel_out] [get_bd_pins gth_transceivers_buffer_0/txpippmsel_in]
+connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmpd_out] [get_bd_pins gth_transceivers_buffer_0/txpippmpd_in]
+connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmstepsize_out] [get_bd_pins gth_transceivers_buffer_0/txpippmstepsize_in]
+
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_in] [get_bd_ports gpio_sw_c] 
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/mgtrefclk0_x0y5_p] [get_bd_ports mgtrefclk0_x0y5_p]
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/mgtrefclk0_x0y5_n] [get_bd_ports mgtrefclk0_x0y5_n]
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthrxn_in] [get_bd_ports gthrxn]
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthrxp_in] [get_bd_ports gthrxp]
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthtxn_out] [get_bd_ports gthtxn]
+connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthtxp_out] [get_bd_ports gthtxp]
 
 validate_bd_design
 
