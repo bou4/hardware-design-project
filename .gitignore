@@ -1,9 +1,10 @@
-./bd/
-./out/
+.cache/
+.srcs/
+.Xil/
 
-./.cache/
-./.srcs/
-./.Xil/
+bd/
+out/
+rpt/
 
-./vivado*.jou
-./vivado*.log
+vivado.jou
+vivado.log

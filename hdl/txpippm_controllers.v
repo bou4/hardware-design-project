@@ -15,26 +15,30 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
     output wire [(CHANNEL_COUNT*5)-1 : 0] txpippmstepsize_out
 );
 
-    genvar channel_index;
+    wire reset_int = gtwiz_reset_all_in || ~gtwiz_userclk_tx_active_in;
 
-    generate for(channel_index = 0; channel_index < CHANNEL_COUNT; channel_index = channel_index+1)
-        begin : generate_txpippm_controller
+    wire reset_sync;
 
-            txpippm_controller txpippm_controller_inst (
-                .sel_in                     (sel_in              [(channel_index+1)*1-1 : (channel_index)*1]),
-                .pulse_in                   (pulse_in                                                       ),
-                .stepsize_in                (stepsize_in                                                    ),
-                .gtwiz_userclk_tx_usrclk_in (gtwiz_userclk_tx_usrclk_in                                     ),
-                .gtwiz_userclk_tx_active_in (gtwiz_userclk_tx_active_in                                     ),
-                .gtwiz_reset_all_in         (gtwiz_reset_all_in                                             ),
-                .txpippmen_out              (txpippmen_out       [(channel_index+1)*1-1 : (channel_index)*1]),
-                .txpippmovrden_out          (txpippmovrden_out   [(channel_index+1)*1-1 : (channel_index)*1]),
-                .txpippmsel_out             (txpippmsel_out      [(channel_index+1)*1-1 : (channel_index)*1]),
-                .txpippmpd_out              (txpippmpd_out       [(channel_index+1)*1-1 : (channel_index)*1]),
-                .txpippmstepsize_out        (txpippmstepsize_out [(channel_index+1)*5-1 : (channel_index)*5])
-            );
+    (* DONT_TOUCH = "TRUE" *)
+    reset_synchronizer reset_synchronizer_reset_inst (
+        .clk_in    (gtwiz_userclk_tx_usrclk_in),
+        .reset_in  (reset_int                 ),
+        .reset_out (reset_sync                )
+    );
 
-        end
-    endgenerate
+    wire txpippmen_int;
+
+    // TODO: Implement state machine
+
+
+    assign txpippmen_out       = {CHANNEL_COUNT {txpippmen_int}} & sel_in;
+    // Normal operation
+    assign txpippmovrden_out   = {CHANNEL_COUNT {1'b0}};
+    // Use the TX phase interpolator PPM controller
+    assign txpippmsel_out      = {CHANNEL_COUNT {1'b1}};
+    // Do not power down the TX phase interpolator PPM controller
+    assign txpippmpd_out       = {CHANNEL_COUNT {1'b0}};
+
+    assign txpippmstepsize_out = {CHANNEL_COUNT {stepsize_in}};  
 
 endmodule
