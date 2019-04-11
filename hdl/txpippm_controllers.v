@@ -26,48 +26,71 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
         .reset_out (reset_sync                )
     );
 
-    wire txpippmen_int;
+    reg txpippmen_int;
 
-    localparam [1 : 0] state_pulse_low    = 2'b00;
-    localparam [1 : 0] state_pulse_rising = 2'b01;
-    localparam [1 : 0] state_pulse_high   = 2'b10;
+    localparam [1 : 0] state_pulse_low      = 2'b00;
+    localparam [1 : 0] state_pulse_rising_0 = 2'b01;
+    localparam [1 : 0] state_pulse_rising_1 = 2'b11;
+    localparam [1 : 0] state_pulse_high     = 2'b10;
 
     reg [1 : 0] state_current_int;
     reg [1 : 0] state_next_int;
 
     always @(posedge gtwiz_userclk_tx_usrclk_in)
         begin
-            if(reset)
+            if(reset_sync)
                 begin
                     state_current_int <= state_pulse_low;
                 end
             else
                 begin
-                    state_current_int <= state_next;
+                    state_current_int <= state_next_int;
                 end
         end
 
-    always @(state_current, pulse_in)
+    always @(state_current_int, pulse_in)
         begin
-            case ({state_current, pulse_in})
+            case ({state_current_int, pulse_in})
                 {state_pulse_low, 1'b1}:
                     begin
-                        state_next    <= state_pulse_rising;
-                        txpippmen_int <= 1'b0;
+                        state_next_int <= state_pulse_rising_0;
                     end
-                {state_pulse_rising, 1'b0}, {state_pulse_rising, 1'b1}:
+                {state_pulse_rising_0, 1'b0}, {state_pulse_rising_0, 1'b1}:
                     begin
-                        state_next    <= state_pulse_high;
-                        txpippmen_int <= 1'b1;
+                        state_next_int <= state_pulse_rising_1;
+                    end
+                {state_pulse_rising_1, 1'b0}, {state_pulse_rising_1, 1'b1}:
+                    begin
+                        state_next_int <= state_pulse_high;
                     end
                 {state_pulse_high, 1'b0}:
                     begin
-                        state_next    <= state_pulse_low;
-                        txpippmen_int <= 1'b1;
+                        state_next_int <= state_pulse_low;
                     end
                 default:
                     begin
-                        state_next    <= state_current;
+                        state_next_int <= state_current_int;
+                    end
+            endcase
+        end
+
+    always @(state_current_int)
+        begin
+            case (state_current_int)
+                state_pulse_low:
+                    begin
+                        txpippmen_int <= 1'b0;
+                    end
+                state_pulse_rising_0:
+                    begin
+                        txpippmen_int <= 1'b1;
+                    end
+                state_pulse_rising_1:
+                    begin
+                        txpippmen_int <= 1'b1;
+                    end
+                state_pulse_high:
+                    begin
                         txpippmen_int <= 1'b0;
                     end
             endcase
