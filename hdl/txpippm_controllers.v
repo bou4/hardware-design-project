@@ -28,8 +28,50 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
 
     wire txpippmen_int;
 
-    // TODO: Implement state machine
+    localparam [1 : 0] state_pulse_low    = 2'b00;
+    localparam [1 : 0] state_pulse_rising = 2'b01;
+    localparam [1 : 0] state_pulse_high   = 2'b10;
 
+    reg [1 : 0] state_current_int;
+    reg [1 : 0] state_next_int;
+
+    always @(posedge gtwiz_userclk_tx_usrclk_in)
+        begin
+            if(reset)
+                begin
+                    state_current_int <= state_pulse_low;
+                end
+            else
+                begin
+                    state_current_int <= state_next;
+                end
+        end
+
+    always @(state_current, pulse_in)
+        begin
+            case ({state_current, pulse_in})
+                {state_pulse_low, 1'b1}:
+                    begin
+                        state_next    <= state_pulse_rising;
+                        txpippmen_int <= 1'b0;
+                    end
+                {state_pulse_rising, 1'b0}, {state_pulse_rising, 1'b1}:
+                    begin
+                        state_next    <= state_pulse_high;
+                        txpippmen_int <= 1'b1;
+                    end
+                {state_pulse_high, 1'b0}:
+                    begin
+                        state_next    <= state_pulse_low;
+                        txpippmen_int <= 1'b1;
+                    end
+                default:
+                    begin
+                        state_next    <= state_current;
+                        txpippmen_int <= 1'b0;
+                    end
+            endcase
+        end
 
     assign txpippmen_out       = {CHANNEL_COUNT {txpippmen_int}} & sel_in;
     // Normal operation
@@ -39,6 +81,6 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
     // Do not power down the TX phase interpolator PPM controller
     assign txpippmpd_out       = {CHANNEL_COUNT {1'b0}};
 
-    assign txpippmstepsize_out = {CHANNEL_COUNT {stepsize_in}};  
+    assign txpippmstepsize_out = {CHANNEL_COUNT {stepsize_in}};
 
 endmodule
