@@ -56,6 +56,9 @@ CONFIG.USE_LOCKED {false} \
 CONFIG.USE_RESET {false} \
 ] [get_bd_cells clk_wiz_0]
 
+# Create instance: debouncer_0
+create_bd_cell -type module -reference debouncer debouncer_0
+
 # Create instance: txpippm_controllers_0
 create_bd_cell -type module -reference txpippm_controllers txpippm_controllers_0
 
@@ -66,8 +69,6 @@ create_bd_cell -vlnv ugent.be:user:gth_transceivers_buffer:1.0 -type IP gth_tran
 create_bd_cell -vlnv xilinx.com:ip:vio:3.0 -type IP vio_0
 
 set_property -dict [list \
-CONFIG.C_PROBE_OUT11_WIDTH {5} \
-CONFIG.C_PROBE_OUT10_WIDTH {10} \
 CONFIG.C_PROBE_OUT9_WIDTH {32} \
 CONFIG.C_PROBE_OUT8_WIDTH {32} \
 CONFIG.C_PROBE_OUT7_WIDTH {32} \
@@ -78,10 +79,21 @@ CONFIG.C_PROBE_OUT3_WIDTH {32} \
 CONFIG.C_PROBE_OUT2_WIDTH {32} \
 CONFIG.C_PROBE_OUT1_WIDTH {32} \
 CONFIG.C_PROBE_OUT0_WIDTH {32} \
-CONFIG.C_NUM_PROBE_OUT {12} \
+CONFIG.C_NUM_PROBE_OUT {10} \
 CONFIG.C_EN_PROBE_IN_ACTIVITY {0} \
 CONFIG.C_NUM_PROBE_IN {0} \
 ] [get_bd_cells vio_0]
+
+# Create instance: vio_1, and set properties
+create_bd_cell -vlnv xilinx.com:ip:vio:3.0 -type IP vio_1
+
+set_property -dict [list \
+CONFIG.C_PROBE_OUT1_WIDTH {5} \
+CONFIG.C_PROBE_OUT0_WIDTH {10} \
+CONFIG.C_NUM_PROBE_OUT {2} \
+CONFIG.C_EN_PROBE_IN_ACTIVITY {0} \
+CONFIG.C_NUM_PROBE_IN {0} \
+] [get_bd_cells vio_1]
 
 # Create instance: xlconcat_0, and set properties
 create_bd_cell -vlnv xilinx.com:ip:xlconcat:2.1 -type IP xlconcat_0
@@ -100,12 +112,16 @@ connect_bd_net [get_bd_ports mgtrefclk0_x0y5_p] [get_bd_pins gth_transceivers_bu
 connect_bd_net [get_bd_ports mgtrefclk0_x0y5_n] [get_bd_pins gth_transceivers_buffer_0/mgtrefclk0_x0y5_n]
 
 connect_bd_net [get_bd_ports gpio_sw_c] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_in]
-connect_bd_net [get_bd_ports gpio_sw_s] [get_bd_pins txpippm_controllers_0/pulse_in]
 
 connect_bd_net [get_bd_ports gthrxn] [get_bd_pins gth_transceivers_buffer_0/gthrxn_in]
 connect_bd_net [get_bd_ports gthrxp] [get_bd_pins gth_transceivers_buffer_0/gthrxp_in]
 connect_bd_net [get_bd_ports gthtxn] [get_bd_pins gth_transceivers_buffer_0/gthtxn_out]
 connect_bd_net [get_bd_ports gthtxp] [get_bd_pins gth_transceivers_buffer_0/gthtxp_out]
+
+connect_bd_net [get_bd_pins debouncer_0/clk] [get_bd_pins clk_wiz_0/clk_out1]
+connect_bd_net [get_bd_pins debouncer_0/reset] [get_bd_ports gpio_sw_c]
+connect_bd_net [get_bd_pins debouncer_0/button_in] [get_bd_ports gpio_sw_s] 
+connect_bd_net [get_bd_pins debouncer_0/button_out] [get_bd_pins txpippm_controllers_0/pulse_in]
 
 connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmen_out] [get_bd_pins gth_transceivers_buffer_0/txpippmen_in]
 connect_bd_net [get_bd_pins txpippm_controllers_0/txpippmovrden_out] [get_bd_pins gth_transceivers_buffer_0/txpippmovrden_in]
@@ -120,8 +136,6 @@ connect_bd_net [get_bd_pins txpippm_controllers_0/gtwiz_reset_all_in] [get_bd_pi
 
 connect_bd_net [get_bd_pins vio_0/clk] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk2_out]
 
-connect_bd_net [get_bd_pins vio_0/probe_out11] [get_bd_pins txpippm_controllers_0/stepsize_in]
-connect_bd_net [get_bd_pins vio_0/probe_out10] [get_bd_pins txpippm_controllers_0/sel_in]
 connect_bd_net [get_bd_pins vio_0/probe_out9] [get_bd_pins xlconcat_0/In9]
 connect_bd_net [get_bd_pins vio_0/probe_out8] [get_bd_pins xlconcat_0/In8]
 connect_bd_net [get_bd_pins vio_0/probe_out7] [get_bd_pins xlconcat_0/In7]
@@ -134,6 +148,11 @@ connect_bd_net [get_bd_pins vio_0/probe_out1] [get_bd_pins xlconcat_0/In1]
 connect_bd_net [get_bd_pins vio_0/probe_out0] [get_bd_pins xlconcat_0/In0]
 
 connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userdata_tx_in]
+
+connect_bd_net [get_bd_pins vio_1/clk] [get_bd_pins clk_wiz_0/clk_out1]
+
+connect_bd_net [get_bd_pins vio_1/probe_out1] [get_bd_pins txpippm_controllers_0/stepsize_in]
+connect_bd_net [get_bd_pins vio_1/probe_out0] [get_bd_pins txpippm_controllers_0/sel_in]
 
 validate_bd_design
 
