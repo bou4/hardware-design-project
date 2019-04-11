@@ -1,6 +1,7 @@
 ./bd/
 ./out/
 
+./.cache/
 ./.srcs/
 ./.Xil/
 
