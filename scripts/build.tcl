@@ -69,8 +69,8 @@ report_timing_summary -file $rptDir/post_place_timing_summary.rpt
 route_design
 
 report_timing_summary -file $rptDir/post_route_timing_summary.rpt
-report_utilization -file $outputDir/post_route_util.rpt
-report_power -file $outputDir/post_route_power.rpt
+report_utilization -file $outDir/post_route_util.rpt
+report_power -file $outDir/post_route_power.rpt
 
 ################################################################
 # EXPORT HARDWARE
