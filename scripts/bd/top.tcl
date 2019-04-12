@@ -101,13 +101,13 @@ connect_bd_net [get_bd_pins vio_0/probe_out2] [get_bd_pins xlconcat_0/In2]
 connect_bd_net [get_bd_pins vio_0/probe_out1] [get_bd_pins xlconcat_0/In1]
 connect_bd_net [get_bd_pins vio_0/probe_out0] [get_bd_pins xlconcat_0/In0]
 
-connect_bd_net [get_bd_pins vio_1/clk] [get_bd_pins clk_wiz_0/clk_out1]
+connect_bd_net [get_bd_pins vio_1/clk] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk_out]
 connect_bd_net [get_bd_pins vio_1/probe_out1] [get_bd_pins txpippm_controllers_0/stepsize_in]
 connect_bd_net [get_bd_pins vio_1/probe_out0] [get_bd_pins txpippm_controllers_0/sel_in]
 
 connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userdata_tx_in]
 
-connect_bd_net [get_bd_pins debouncer_0/clk] [get_bd_pins clk_wiz_0/clk_out1]
+connect_bd_net [get_bd_pins debouncer_0/clk] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk_out]
 connect_bd_net [get_bd_pins debouncer_0/reset] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_all_out]
 connect_bd_net [get_bd_pins debouncer_0/button_in] [get_bd_ports gpio_sw_s] 
 connect_bd_net [get_bd_pins debouncer_0/button_out] [get_bd_pins txpippm_controllers_0/pulse_in]
