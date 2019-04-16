@@ -1,10 +1,10 @@
-.cache/
-.srcs/
-.Xil/
+/.cache/
+/.srcs/
+/.Xil/
 
-bd/
-out/
-rpt/
+/bd/
+/out/
+/rpt/
 
 vivado.jou
 vivado.log

@@ -3,29 +3,36 @@
 ################################################################
 create_bd_design -dir $bdDir top
 
-# Create interface ports
-## Differential system clock inputs
+################################################################
+# CREATE INTERFACE PORTS
+################################################################
+# Differential system clock inputs
 create_bd_intf_port -vlnv xilinx.com:interface:diff_clock_rtl:1.0 -mode Slave default_sysclk1_300
 
 set_property -dict [ list \
 CONFIG.FREQ_HZ {300000000} \
 ] [get_bd_intf_ports default_sysclk1_300]
 
-# Create ports
-## Directional push buttons
+################################################################
+# CREATE PORTS
+################################################################
+# Directional push buttons
 create_bd_port -dir I gpio_sw_s
 create_bd_port -dir I gpio_sw_c
 
-## Differential reference clock inputs
+# Differential reference clock inputs
 create_bd_port -dir I mgtrefclk0_x0y5_p
 create_bd_port -dir I mgtrefclk0_x0y5_n
 
-## Serial data ports
+# Serial data ports
 create_bd_port -from 9 -to 0 -dir I gthrxn
 create_bd_port -from 9 -to 0 -dir I gthrxp
 create_bd_port -from 9 -to 0 -dir O gthtxn
 create_bd_port -from 9 -to 0 -dir O gthtxp
 
+################################################################
+# CREATE CELLS
+################################################################
 # Create instance: clk_wiz_0, and set properties
 create_bd_cell -vlnv xilinx.com:ip:clk_wiz:6.0 -type IP clk_wiz_0
 
@@ -85,10 +92,14 @@ create_bd_cell -type module -reference txpippm_controllers txpippm_controllers_0
 # Create instance: gth_transceivers_buffer_0
 create_bd_cell -vlnv ugent.be:user:gth_transceivers_buffer:1.0 -type IP gth_transceivers_buffer_0
 
-# Create interface connections
+################################################################
+# CREATE INTERFACE CONNECTIONS
+################################################################
 connect_bd_intf_net [get_bd_intf_pins clk_wiz_0/CLK_IN1_D] [get_bd_intf_ports default_sysclk1_300]
 
-# Create port connections
+################################################################
+# CREATE PORT CONNECTIONS
+################################################################
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins gth_transceivers_buffer_0/hb_gtwiz_reset_clk_freerun_in]
 
 connect_bd_net [get_bd_pins vio_0/clk] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk2_out]
@@ -133,6 +144,9 @@ connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthrxp_in] [get_bd_ports g
 connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthtxn_out] [get_bd_ports gthtxn]
 connect_bd_net [get_bd_pins gth_transceivers_buffer_0/gthtxp_out] [get_bd_ports gthtxp]
 
+################################################################
+# EXPORT BLOCK DESIGN
+################################################################
 validate_bd_design
 
 save_bd_design
