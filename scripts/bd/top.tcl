@@ -63,8 +63,10 @@ set_property -dict [list \
 CONFIG.C_PROBE_OUT1_WIDTH {5} \
 CONFIG.C_PROBE_OUT0_WIDTH {10} \
 CONFIG.C_NUM_PROBE_OUT {2} \
-CONFIG.C_EN_PROBE_IN_ACTIVITY {0} \
-CONFIG.C_NUM_PROBE_IN {0} \
+CONFIG.C_EN_PROBE_IN_ACTIVITY {1} \
+CONFIG.C_PROBE_IN1_WIDTH {2} \
+CONFIG.C_PROBE_IN0_WIDTH {1} \
+CONFIG.C_NUM_PROBE_IN {2} \
 ] [get_bd_cells vio_1]
 
 # Create instance: xlconcat_0, and set properties
@@ -104,6 +106,8 @@ connect_bd_net [get_bd_pins vio_0/probe_out0] [get_bd_pins xlconcat_0/In0]
 connect_bd_net [get_bd_pins vio_1/clk] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userclk_tx_usrclk_out]
 connect_bd_net [get_bd_pins vio_1/probe_out1] [get_bd_pins txpippm_controllers_0/stepsize_in]
 connect_bd_net [get_bd_pins vio_1/probe_out0] [get_bd_pins txpippm_controllers_0/sel_in]
+connect_bd_net [get_bd_pins vio_1/probe_in1] [get_bd_pins txpippm_controllers_0/state_out]
+connect_bd_net [get_bd_pins vio_1/probe_in0] [get_bd_pins debouncer_0/button_out]
 
 connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins gth_transceivers_buffer_0/gtwiz_userdata_tx_in]
 

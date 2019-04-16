@@ -1,7 +1,7 @@
 module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
     input  wire [(CHANNEL_COUNT*1)-1 : 0] sel_in,
     input  wire pulse_in,
-    input  wire [5-1 : 0] stepsize_in,
+    input  wire [4 : 0] stepsize_in,
     // TXUSRCLK input
     input  wire gtwiz_userclk_tx_usrclk_in,
     input  wire gtwiz_userclk_tx_active_in,
@@ -12,7 +12,9 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
     output wire [(CHANNEL_COUNT*1)-1 : 0] txpippmovrden_out,
     output wire [(CHANNEL_COUNT*1)-1 : 0] txpippmsel_out,
     output wire [(CHANNEL_COUNT*1)-1 : 0] txpippmpd_out,
-    output wire [(CHANNEL_COUNT*5)-1 : 0] txpippmstepsize_out
+    output wire [(CHANNEL_COUNT*5)-1 : 0] txpippmstepsize_out,
+    // Debug
+    output wire [1 : 0] state_out
 );
 
     wire reset_int = gtwiz_reset_all_in || ~gtwiz_userclk_tx_active_in;
@@ -35,6 +37,8 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
 
     reg [1 : 0] state_current_int;
     reg [1 : 0] state_next_int;
+
+    assign state_out = state_current_int;
 
     always @(posedge gtwiz_userclk_tx_usrclk_in)
         begin
