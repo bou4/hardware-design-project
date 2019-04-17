@@ -28,6 +28,15 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
         .reset_out (reset_sync                )
     );
 
+    wire pulse_sync;
+
+    (* DONT_TOUCH = "TRUE" *)
+    bit_synchronizer bit_synchronizer_pulse_inst (
+        .clk_in  (gtwiz_userclk_tx_usrclk_in),
+        .bit_in  (pulse_in                  ),
+        .bit_out (pulse_sync                )
+    );
+
     reg txpippmen_int;
 
     localparam [1 : 0] state_pulse_low      = 2'b00;
@@ -52,9 +61,9 @@ module txpippm_controllers #(parameter integer CHANNEL_COUNT = 10) (
                 end
         end
 
-    always @(state_current_int, pulse_in)
+    always @(state_current_int, pulse_sync)
         begin
-            case ({state_current_int, pulse_in})
+            case ({state_current_int, pulse_sync})
                 {state_pulse_low, 1'b1}:
                     begin
                         state_next_int <= state_pulse_rising_0;

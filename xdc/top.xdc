@@ -1,12 +1,9 @@
-# Differential reference clock inputs
-set_property PACKAGE_PIN R8 [get_ports mgtrefclk0_x0y5_n]
-set_property PACKAGE_PIN R9 [get_ports mgtrefclk0_x0y5_p]
+# False path constraints
+set_false_path -to [get_cells -hierarchical -filter {NAME =~ *bit_synchronizer*inst/bit_in_meta_reg}]
 
-create_clock -name clk_mgtrefclk0_x0y5_p -period 8.0 [get_ports mgtrefclk0_x0y5_p]
-
-# Directional push buttons
-set_property PACKAGE_PIN D9 [get_ports gpio_sw_s]
-set_property IOSTANDARD LVCMOS12 [get_ports gpio_sw_s]
-
-set_property PACKAGE_PIN AW27 [get_ports gpio_sw_c]
-set_property IOSTANDARD LVCMOS12 [get_ports gpio_sw_c]
+set_false_path -to [get_pins -filter {REF_PIN_NAME =~   *D} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_synchronizer*inst/reset_in_meta* }]]
+set_false_path -to [get_pins -filter {REF_PIN_NAME =~ *PRE} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_synchronizer*inst/reset_in_meta* }]]
+set_false_path -to [get_pins -filter {REF_PIN_NAME =~ *PRE} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_synchronizer*inst/reset_in_sync1*}]]
+set_false_path -to [get_pins -filter {REF_PIN_NAME =~ *PRE} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_synchronizer*inst/reset_in_sync2*}]]
+set_false_path -to [get_pins -filter {REF_PIN_NAME =~ *PRE} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_synchronizer*inst/reset_in_sync3*}]]
+set_false_path -to [get_pins -filter {REF_PIN_NAME =~ *PRE} -of_objects [get_cells -hierarchical -filter {NAME =~ *reset_synchronizer*inst/reset_in_out*  }]]
