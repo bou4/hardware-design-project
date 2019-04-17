@@ -10,7 +10,7 @@
  */
 const scpi_command_t scpi_commands[] =
 {
-		 /* IEEE Mandated Commands (SCPI std V1999.0 4.1.1) */
+		/* IEEE Mandated Commands (SCPI std V1999.0 4.1.1) */
 		/* Clear Status Command */
 		{ .pattern = "*CLS"                          , .callback = SCPI_CoreCls                  , },
 		/* Standard Event Status Enable Command */
