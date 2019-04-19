@@ -20,22 +20,23 @@ module reset_synchronizer (
 
     reg reset_in_out   = 1'b0;
 
-    always @(posedge clk_in, posedge reset_in) begin
-        if (reset_in) begin
-            reset_in_meta  <= 1'b1;
-            reset_in_sync1 <= 1'b1;
-            reset_in_sync2 <= 1'b1;
-            reset_in_sync3 <= 1'b1;
-            reset_in_out   <= 1'b1;
+    always @(posedge clk_in, posedge reset_in) 
+        begin
+            if (reset_in) begin
+                reset_in_meta  <= 1'b1;
+                reset_in_sync1 <= 1'b1;
+                reset_in_sync2 <= 1'b1;
+                reset_in_sync3 <= 1'b1;
+                reset_in_out   <= 1'b1;
+            end
+            else begin
+                reset_in_meta  <= 1'b0;
+                reset_in_sync1 <= reset_in_meta;
+                reset_in_sync2 <= reset_in_sync1;
+                reset_in_sync3 <= reset_in_sync2;
+                reset_in_out   <= reset_in_sync3;
+            end
         end
-        else begin
-            reset_in_meta  <= 1'b0;
-            reset_in_sync1 <= reset_in_meta;
-            reset_in_sync2 <= reset_in_sync1;
-            reset_in_sync3 <= reset_in_sync2;
-            reset_in_out   <= reset_in_sync3;
-        end
-    end
 
     assign reset_out = reset_in_out;
 
