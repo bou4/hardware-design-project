@@ -1,8 +1,8 @@
 // -----------------------------------------------------------------------------
-// 'axi_gth_txpippm_controllers' Register Definitions
-// Revision: 29
+// 'gth_transceivers' Register Definitions
+// Revision: 33
 // -----------------------------------------------------------------------------
-// Generated on 2019-04-17 at 08:21 (UTC) by airhdl version 2019.02.1
+// Generated on 2019-04-19 at 14:46 (UTC) by airhdl version 2019.02.1
 // -----------------------------------------------------------------------------
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -17,14 +17,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 // -----------------------------------------------------------------------------
 
-#ifndef AXI_GTH_TXPIPPM_CONTROLLERS_H
-#define AXI_GTH_TXPIPPM_CONTROLLERS_H
+#ifndef GTH_TRANSCEIVERS_H
+#define GTH_TRANSCEIVERS_H
 
-/* Revision number of the 'axi_gth_txpippm_controllers' register map */
-#define AXI_GTH_TXPIPPM_CONTROLLERS_REVISION 29
+/* Revision number of the 'gth_transceivers' register map */
+#define GTH_TRANSCEIVERS_REVISION 33
 
-/* Default base address of the 'axi_gth_txpippm_controllers' register map */
-#define AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR 0x80000000
+/* Default base address of the 'gth_transceivers' register map */
+#define GTH_TRANSCEIVERS_DEFAULT_BASEADDR 0x80000000
 
 /* Register 'reset' */
 #define RESET_OFFSET 0x00000000 /* address offset of the 'reset' register */
@@ -62,4 +62,4 @@
 #define STEPSIZE_STEPSIZE_BIT_MASK 0x0000001F /* bit mask of the 'stepsize' field */
 #define STEPSIZE_STEPSIZE_RESET 0x0 /* reset value of the 'stepsize' field */
 
-#endif  /* AXI_GTH_TXPIPPM_CONTROLLERS_H */
+#endif  /* GTH_TRANSCEIVERS_H */

@@ -2,12 +2,11 @@
 #include "commands.h"
 
 /* AXI */
-#include "axi_gth_txpippm_controllers_regs.h"
+#include "gth_transceivers_regs.h"
 
 scpi_result_t Transceivers_Reset(scpi_t* context)
 {
-	Xil_Out32(AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR + RESET_OFFSET, 0x1);
-	Xil_Out32(AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR + RESET_OFFSET, 0x0);
+	Xil_Out32(GTH_TRANSCEIVERS_DEFAULT_BASEADDR + RESET_OFFSET, 0x1);
 
     return SCPI_RES_OK;
 }
@@ -77,10 +76,9 @@ scpi_result_t Transceivers_Phase(scpi_t * context)
 		stepsize |= (1 << 4);
 	}
 
-	Xil_Out32(AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR + SEL_OFFSET, select);
-	Xil_Out32(AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR + STEPSIZE_OFFSET, stepsize);
-	Xil_Out32(AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR + PULSE_OFFSET, 0x1);
-	Xil_Out32(AXI_GTH_TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR + PULSE_OFFSET, 0x0);
+	Xil_Out32(GTH_TRANSCEIVERS_DEFAULT_BASEADDR + SEL_OFFSET, select);
+	Xil_Out32(GTH_TRANSCEIVERS_DEFAULT_BASEADDR + STEPSIZE_OFFSET, stepsize);
+	Xil_Out32(GTH_TRANSCEIVERS_DEFAULT_BASEADDR + PULSE_OFFSET, 0x1);
 
     return SCPI_RES_OK;
 }

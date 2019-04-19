@@ -1,8 +1,8 @@
 -- -----------------------------------------------------------------------------
--- 'axi_gth_txpippm_controllers' Register Component
--- Revision: 29
+-- 'gth_transceivers' Register Component
+-- Revision: 33
 -- -----------------------------------------------------------------------------
--- Generated on 2019-04-16 at 13:38 (UTC) by airhdl version 2019.02.1
+-- Generated on 2019-04-19 at 14:39 (UTC) by airhdl version 2019.02.1
 -- -----------------------------------------------------------------------------
 -- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
 -- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -21,9 +21,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.axi_gth_txpippm_controllers_regs_pkg.all;
+use work.gth_transceivers_regs_pkg.all;
 
-entity axi_gth_txpippm_controllers_regs is
+entity gth_transceivers_regs is
     generic(
         AXI_ADDR_WIDTH : integer := 32;  -- width of the AXI address bus
         BASEADDR : std_logic_vector(31 downto 0) := x"80000000" -- the register file's system base address		
@@ -66,9 +66,9 @@ entity axi_gth_txpippm_controllers_regs is
         stepsize_strobe : out std_logic; -- Strobe signal for register 'stepsize' (pulsed when the register is written from the bus)
         stepsize_stepsize : out std_logic_vector(4 downto 0) -- Value of register 'stepsize', field 'stepsize'
     );
-end entity axi_gth_txpippm_controllers_regs;
+end entity gth_transceivers_regs;
 
-architecture RTL of axi_gth_txpippm_controllers_regs is
+architecture RTL of gth_transceivers_regs is
 
     -- Constants
     constant AXI_OKAY           : std_logic_vector(1 downto 0) := "00";
@@ -251,6 +251,10 @@ begin
             s_sel_strobe_r <= '0';
             s_pulse_strobe_r <= '0';
             s_stepsize_strobe_r <= '0';
+
+            -- Self-clearing fields:
+            s_reg_reset_reset_r <= (others => '0');
+            s_reg_pulse_pulse_r <= (others => '0');
 
             case v_state_r is
 

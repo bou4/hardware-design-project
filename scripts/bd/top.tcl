@@ -258,8 +258,8 @@ proc create_root_design { parentCell } {
         CONFIG.POLARITY {ACTIVE_HIGH} \
     ] $reset
 
-    # Create instance: axi_gth_txpippm_cont_0, and set properties
-    set axi_gth_txpippm_cont_0 [ create_bd_cell -type module -reference axi_gth_txpippm_controllers_regs axi_gth_txpippm_cont_0 ]
+    # Create instance: gth_transceivers_cont_0, and set properties
+    set gth_transceivers_cont_0 [ create_bd_cell -type module -reference gth_transceivers_regs gth_transceivers_cont_0 ]
 
     # Create instance: axi_uartlite_0, and set properties
     set axi_uartlite_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_uartlite:2.0 axi_uartlite_0 ]
@@ -327,32 +327,32 @@ proc create_root_design { parentCell } {
     connect_bd_intf_net -intf_net default_sysclk1_300_1 [get_bd_intf_ports default_sysclk1_300] [get_bd_intf_pins clk_wiz_1/CLK_IN1_D]
     connect_bd_intf_net -intf_net microblaze_0_M_AXI_DP [get_bd_intf_pins microblaze_0/M_AXI_DP] [get_bd_intf_pins microblaze_0_axi_periph/S00_AXI]
     connect_bd_intf_net -intf_net microblaze_0_axi_periph_M00_AXI [get_bd_intf_pins axi_uartlite_0/S_AXI] [get_bd_intf_pins microblaze_0_axi_periph/M00_AXI]
-    connect_bd_intf_net -intf_net microblaze_0_axi_periph_M01_AXI [get_bd_intf_pins axi_gth_txpippm_cont_0/s_axi] [get_bd_intf_pins microblaze_0_axi_periph/M01_AXI]
+    connect_bd_intf_net -intf_net microblaze_0_axi_periph_M01_AXI [get_bd_intf_pins gth_transceivers_cont_0/s_axi] [get_bd_intf_pins microblaze_0_axi_periph/M01_AXI]
     connect_bd_intf_net -intf_net microblaze_0_debug [get_bd_intf_pins mdm_1/MBDEBUG_0] [get_bd_intf_pins microblaze_0/DEBUG]
     connect_bd_intf_net -intf_net microblaze_0_dlmb_1 [get_bd_intf_pins microblaze_0/DLMB] [get_bd_intf_pins microblaze_0_local_memory/DLMB]
     connect_bd_intf_net -intf_net microblaze_0_ilmb_1 [get_bd_intf_pins microblaze_0/ILMB] [get_bd_intf_pins microblaze_0_local_memory/ILMB]
 
     # Create port connections
-    connect_bd_net -net axi_gth_txpippm_cont_0_pulse_pulse [get_bd_pins axi_gth_txpippm_cont_0/pulse_pulse] [get_bd_pins microblaze_0_gth_transceivers_buffer/pulse_in] [get_bd_pins vio_0/probe_in2]
-    connect_bd_net -net axi_gth_txpippm_cont_0_reset_reset [get_bd_pins axi_gth_txpippm_cont_0/reset_reset] [get_bd_pins microblaze_0_gth_transceivers_buffer/hb_gtwiz_reset_all_in] [get_bd_pins vio_0/probe_in0]
-    connect_bd_net -net axi_gth_txpippm_cont_0_sel_sel [get_bd_pins axi_gth_txpippm_cont_0/sel_sel] [get_bd_pins microblaze_0_gth_transceivers_buffer/sel_in] [get_bd_pins vio_0/probe_in1]
-    connect_bd_net -net axi_gth_txpippm_cont_0_stepsize_stepsize [get_bd_pins axi_gth_txpippm_cont_0/stepsize_stepsize] [get_bd_pins microblaze_0_gth_transceivers_buffer/stepsize_in] [get_bd_pins vio_0/probe_in3]
+    connect_bd_net -net gth_transceivers_cont_0_pulse_pulse [get_bd_pins gth_transceivers_cont_0/pulse_pulse] [get_bd_pins microblaze_0_gth_transceivers_buffer/pulse_in] [get_bd_pins vio_0/probe_in2]
+    connect_bd_net -net gth_transceivers_cont_0_reset_reset [get_bd_pins gth_transceivers_cont_0/reset_reset] [get_bd_pins microblaze_0_gth_transceivers_buffer/hb_gtwiz_reset_all_in] [get_bd_pins vio_0/probe_in0]
+    connect_bd_net -net gth_transceivers_cont_0_sel_sel [get_bd_pins gth_transceivers_cont_0/sel_sel] [get_bd_pins microblaze_0_gth_transceivers_buffer/sel_in] [get_bd_pins vio_0/probe_in1]
+    connect_bd_net -net gth_transceivers_cont_0_stepsize_stepsize [get_bd_pins gth_transceivers_cont_0/stepsize_stepsize] [get_bd_pins microblaze_0_gth_transceivers_buffer/stepsize_in] [get_bd_pins vio_0/probe_in3]
     connect_bd_net -net clk_wiz_1_locked [get_bd_pins clk_wiz_1/locked] [get_bd_pins rst_clk_wiz_1_100M/dcm_locked]
     connect_bd_net -net gthrxn_in_1 [get_bd_ports gthrxn_in] [get_bd_pins microblaze_0_gth_transceivers_buffer/gthrxn_in]
     connect_bd_net -net gthrxp_in_1 [get_bd_ports gthrxp_in] [get_bd_pins microblaze_0_gth_transceivers_buffer/gthrxp_in]
     connect_bd_net -net mdm_1_debug_sys_rst [get_bd_pins mdm_1/Debug_SYS_Rst] [get_bd_pins rst_clk_wiz_1_100M/mb_debug_sys_rst]
     connect_bd_net -net mgtrefclk0_x0y5_n_1 [get_bd_ports mgtrefclk0_x0y5_n] [get_bd_pins microblaze_0_gth_transceivers_buffer/mgtrefclk0_x0y5_n]
     connect_bd_net -net mgtrefclk0_x0y5_p_1 [get_bd_ports mgtrefclk0_x0y5_p] [get_bd_pins microblaze_0_gth_transceivers_buffer/mgtrefclk0_x0y5_p]
-    connect_bd_net -net microblaze_0_Clk [get_bd_pins axi_gth_txpippm_cont_0/axi_aclk] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins clk_wiz_1/clk_out1] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins microblaze_0_gth_transceivers_buffer/hb_gtwiz_reset_clk_freerun_in] [get_bd_pins microblaze_0_local_memory/LMB_Clk] [get_bd_pins rst_clk_wiz_1_100M/slowest_sync_clk] [get_bd_pins vio_0/clk]
+    connect_bd_net -net microblaze_0_Clk [get_bd_pins gth_transceivers_cont_0/axi_aclk] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins clk_wiz_1/clk_out1] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins microblaze_0_gth_transceivers_buffer/hb_gtwiz_reset_clk_freerun_in] [get_bd_pins microblaze_0_local_memory/LMB_Clk] [get_bd_pins rst_clk_wiz_1_100M/slowest_sync_clk] [get_bd_pins vio_0/clk]
     connect_bd_net -net microblaze_0_gth_transceivers_buffer_gthtxn_out [get_bd_ports gthtxn_out] [get_bd_pins microblaze_0_gth_transceivers_buffer/gthtxn_out]
     connect_bd_net -net microblaze_0_gth_transceivers_buffer_gthtxp_out [get_bd_ports gthtxp_out] [get_bd_pins microblaze_0_gth_transceivers_buffer/gthtxp_out]
     connect_bd_net -net reset_1 [get_bd_ports reset] [get_bd_pins clk_wiz_1/reset] [get_bd_pins rst_clk_wiz_1_100M/ext_reset_in]
     connect_bd_net -net rst_clk_wiz_1_100M_bus_struct_reset [get_bd_pins microblaze_0_local_memory/SYS_Rst] [get_bd_pins rst_clk_wiz_1_100M/bus_struct_reset]
     connect_bd_net -net rst_clk_wiz_1_100M_mb_reset [get_bd_pins microblaze_0/Reset] [get_bd_pins rst_clk_wiz_1_100M/mb_reset]
-    connect_bd_net -net rst_clk_wiz_1_100M_peripheral_aresetn [get_bd_pins axi_gth_txpippm_cont_0/axi_aresetn] [get_bd_pins axi_uartlite_0/s_axi_aresetn] [get_bd_pins microblaze_0_axi_periph/ARESETN] [get_bd_pins microblaze_0_axi_periph/M00_ARESETN] [get_bd_pins microblaze_0_axi_periph/M01_ARESETN] [get_bd_pins microblaze_0_axi_periph/S00_ARESETN] [get_bd_pins rst_clk_wiz_1_100M/peripheral_aresetn]
+    connect_bd_net -net rst_clk_wiz_1_100M_peripheral_aresetn [get_bd_pins gth_transceivers_cont_0/axi_aresetn] [get_bd_pins axi_uartlite_0/s_axi_aresetn] [get_bd_pins microblaze_0_axi_periph/ARESETN] [get_bd_pins microblaze_0_axi_periph/M00_ARESETN] [get_bd_pins microblaze_0_axi_periph/M01_ARESETN] [get_bd_pins microblaze_0_axi_periph/S00_ARESETN] [get_bd_pins rst_clk_wiz_1_100M/peripheral_aresetn]
 
     # Create address segments
-    create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs axi_gth_txpippm_cont_0/s_axi/reg0] SEG_axi_gth_txpippm_cont_0_reg0
+    create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs gth_transceivers_cont_0/s_axi/reg0] SEG_gth_transceivers_cont_0_reg0
     create_bd_addr_seg -range 0x00010000 -offset 0x40600000 [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs axi_uartlite_0/S_AXI/Reg] SEG_axi_uartlite_0_Reg
     create_bd_addr_seg -range 0x00040000 -offset 0x00000000 [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs microblaze_0_local_memory/dlmb_bram_if_cntlr/SLMB/Mem] SEG_dlmb_bram_if_cntlr_Mem
     create_bd_addr_seg -range 0x00040000 -offset 0x00000000 [get_bd_addr_spaces microblaze_0/Instruction] [get_bd_addr_segs microblaze_0_local_memory/ilmb_bram_if_cntlr/SLMB/Mem] SEG_ilmb_bram_if_cntlr_Mem
