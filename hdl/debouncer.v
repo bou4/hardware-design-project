@@ -6,12 +6,14 @@ module debouncer #(parameter N = 24) (
 );
     reg  [N-1 : 0] q_reg;
     reg  [N-1 : 0] q_next;
-    reg  DFF1;
-    reg  DFF2;
+
+    reg  ff_0;
+    reg  ff_1;
+    
     wire q_add;
     wire q_reset;
 
-    assign q_reset = (DFF1 ^ DFF2);
+    assign q_reset = (ff_0 ^ ff_1);
     assign q_add   = ~(q_reg[N-1]);
 
     always @(q_reset, q_add, q_reg)
@@ -30,14 +32,14 @@ module debouncer #(parameter N = 24) (
         begin
             if(reset ==  1'b1)
                 begin
-                    DFF1  <= 1'b0;
-                    DFF2  <= 1'b0;
+                    ff_0  <= 1'b0;
+                    ff_1  <= 1'b0;
                     q_reg <= {N{1'b0}};
                 end
             else
                 begin
-                    DFF1  <= button_in;
-                    DFF2  <= DFF1;
+                    ff_0  <= button_in;
+                    ff_1  <= ff_0;
                     q_reg <= q_next;
                 end
         end
@@ -45,7 +47,7 @@ module debouncer #(parameter N = 24) (
     always @(posedge clk)
         begin
             if(q_reg[N-1] == 1'b1)
-                button_out <= DFF2;
+                button_out <= ff_1;
             else
                 button_out <= button_out;
         end
