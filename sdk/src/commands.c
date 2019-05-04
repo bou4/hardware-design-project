@@ -1,3 +1,6 @@
+/* Xilinx */
+#include "xil_io.h"
+
 /* Application */
 #include "commands.h"
 
