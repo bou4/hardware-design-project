@@ -23,7 +23,7 @@ else:
 
 ## Oscilloscope
 # Connect to the oscilloscope
-oscilloscope = rm.open_resource('GPIB0::8::INSTR')
+oscilloscope = rm.open_resource('GPIB1::8::INSTR')
 
 # Query identification string
 oscilloscope_idn = oscilloscope.query('*IDN?')

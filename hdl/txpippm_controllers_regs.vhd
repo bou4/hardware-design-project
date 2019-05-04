@@ -1,8 +1,8 @@
 -- -----------------------------------------------------------------------------
--- 'gth_transceivers' Register Component
--- Revision: 33
+-- 'txpippm_controllers' Register Component
+-- Revision: 43
 -- -----------------------------------------------------------------------------
--- Generated on 2019-04-19 at 14:39 (UTC) by airhdl version 2019.02.1
+-- Generated on 2019-04-23 at 11:20 (UTC) by airhdl version 2019.02.1
 -- -----------------------------------------------------------------------------
 -- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
 -- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -21,12 +21,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.gth_transceivers_regs_pkg.all;
+use work.txpippm_controllers_regs_pkg.all;
 
-entity gth_transceivers_regs is
+entity txpippm_controllers_regs is
     generic(
         AXI_ADDR_WIDTH : integer := 32;  -- width of the AXI address bus
-        BASEADDR : std_logic_vector(31 downto 0) := x"80000000" -- the register file's system base address		
+        BASEADDR : std_logic_vector(31 downto 0) := x"00000000" -- the register file's system base address		
     );
     port(
         -- Clock and Reset
@@ -66,9 +66,9 @@ entity gth_transceivers_regs is
         stepsize_strobe : out std_logic; -- Strobe signal for register 'stepsize' (pulsed when the register is written from the bus)
         stepsize_stepsize : out std_logic_vector(4 downto 0) -- Value of register 'stepsize', field 'stepsize'
     );
-end entity gth_transceivers_regs;
+end entity txpippm_controllers_regs;
 
-architecture RTL of gth_transceivers_regs is
+architecture RTL of txpippm_controllers_regs is
 
     -- Constants
     constant AXI_OKAY           : std_logic_vector(1 downto 0) := "00";

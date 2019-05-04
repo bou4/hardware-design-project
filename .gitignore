@@ -6,7 +6,9 @@
 /out/
 /rpt/
 
-vivado.jou
-vivado.log
+/vivado.jou
+/vivado.log
 
 /.vscode/
+
+__pycache__/

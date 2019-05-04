@@ -200,16 +200,16 @@ module gth_transceivers_buffer_example_top (
 
     //--------------------------------------------------------------------------------------------------------------------
     wire [39:0] txdiffctrl_int;
-    wire [3:0] ch0_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch1_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch2_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch3_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch4_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch5_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch6_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch7_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch8_txdiffctrl_int = 4'b1100;
-    wire [3:0] ch9_txdiffctrl_int = 4'b1100;
+    wire [3:0] ch0_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch1_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch2_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch3_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch4_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch5_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch6_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch7_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch8_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch9_txdiffctrl_int = 4'b1111;
     assign txdiffctrl_int[3:0] = ch0_txdiffctrl_int;
     assign txdiffctrl_int[7:4] = ch1_txdiffctrl_int;
     assign txdiffctrl_int[11:8] = ch2_txdiffctrl_int;

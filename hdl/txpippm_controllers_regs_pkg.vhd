@@ -1,8 +1,8 @@
 -- -----------------------------------------------------------------------------
--- 'gth_transceivers' Register Definitions
--- Revision: 33
+-- 'txpippm_controllers' Register Definitions
+-- Revision: 43
 -- -----------------------------------------------------------------------------
--- Generated on 2019-04-19 at 14:39 (UTC) by airhdl version 2019.02.1
+-- Generated on 2019-04-23 at 11:20 (UTC) by airhdl version 2019.02.1
 -- -----------------------------------------------------------------------------
 -- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
 -- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -21,7 +21,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package gth_transceivers_regs_pkg is
+package txpippm_controllers_regs_pkg is
 
     -- Type definitions
     type slv1_array_t is array(natural range <>) of std_logic_vector(0 downto 0);
@@ -58,11 +58,11 @@ package gth_transceivers_regs_pkg is
     type slv32_array_t is array(natural range <>) of std_logic_vector(31 downto 0);
 
 
-    -- Revision number of the 'gth_transceivers' register map
-    constant GTH_TRANSCEIVERS_REVISION : natural := 33;
+    -- Revision number of the 'txpippm_controllers' register map
+    constant TXPIPPM_CONTROLLERS_REVISION : natural := 43;
 
-    -- Default base address of the 'gth_transceivers' register map 
-    constant GTH_TRANSCEIVERS_DEFAULT_BASEADDR : unsigned(31 downto 0) := unsigned'(x"80000000");
+    -- Default base address of the 'txpippm_controllers' register map 
+    constant TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR : unsigned(31 downto 0) := unsigned'(x"00000000");
     
     -- Register 'reset'
     constant RESET_OFFSET : unsigned(31 downto 0) := unsigned'(x"00000000"); -- address offset of the 'reset' register
@@ -88,4 +88,4 @@ package gth_transceivers_regs_pkg is
     constant STEPSIZE_STEPSIZE_BIT_WIDTH : natural := 5; -- bit width of the 'stepsize' field
     constant STEPSIZE_STEPSIZE_RESET : std_logic_vector(4 downto 0) := std_logic_vector'("00000"); -- reset value of the 'stepsize' field
 
-end gth_transceivers_regs_pkg;
+end txpippm_controllers_regs_pkg;
