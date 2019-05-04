@@ -200,16 +200,16 @@ module gth_transceivers_buffer_example_top (
 
     //--------------------------------------------------------------------------------------------------------------------
     wire [39:0] txdiffctrl_int;
-    wire [3:0] ch0_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch1_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch2_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch3_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch4_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch5_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch6_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch7_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch8_txdiffctrl_int = 4'b1111;
-    wire [3:0] ch9_txdiffctrl_int = 4'b1111;
+    wire [3:0] ch0_txdiffctrl_int;
+    wire [3:0] ch1_txdiffctrl_int;
+    wire [3:0] ch2_txdiffctrl_int;
+    wire [3:0] ch3_txdiffctrl_int;
+    wire [3:0] ch4_txdiffctrl_int;
+    wire [3:0] ch5_txdiffctrl_int;
+    wire [3:0] ch6_txdiffctrl_int;
+    wire [3:0] ch7_txdiffctrl_int;
+    wire [3:0] ch8_txdiffctrl_int;
+    wire [3:0] ch9_txdiffctrl_int;
     assign txdiffctrl_int[3:0] = ch0_txdiffctrl_int;
     assign txdiffctrl_int[7:4] = ch1_txdiffctrl_int;
     assign txdiffctrl_int[11:8] = ch2_txdiffctrl_int;
@@ -223,16 +223,16 @@ module gth_transceivers_buffer_example_top (
 
     //--------------------------------------------------------------------------------------------------------------------
     wire [69:0] txmaincursor_int;
-    wire [6:0] ch0_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch1_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch2_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch3_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch4_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch5_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch6_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch7_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch8_txmaincursor_int = 7'b1000000;
-    wire [6:0] ch9_txmaincursor_int = 7'b1000000;
+    wire [6:0] ch0_txmaincursor_int;
+    wire [6:0] ch1_txmaincursor_int;
+    wire [6:0] ch2_txmaincursor_int;
+    wire [6:0] ch3_txmaincursor_int;
+    wire [6:0] ch4_txmaincursor_int;
+    wire [6:0] ch5_txmaincursor_int;
+    wire [6:0] ch6_txmaincursor_int;
+    wire [6:0] ch7_txmaincursor_int;
+    wire [6:0] ch8_txmaincursor_int;
+    wire [6:0] ch9_txmaincursor_int;
     assign txmaincursor_int[6:0] = ch0_txmaincursor_int;
     assign txmaincursor_int[13:7] = ch1_txmaincursor_int;
     assign txmaincursor_int[20:14] = ch2_txmaincursor_int;
@@ -266,16 +266,16 @@ module gth_transceivers_buffer_example_top (
 
     //--------------------------------------------------------------------------------------------------------------------
     wire [49:0] txpostcursor_int;
-    wire [4:0] ch0_txpostcursor_int = 5'b00000;
-    wire [4:0] ch1_txpostcursor_int = 5'b00000;
-    wire [4:0] ch2_txpostcursor_int = 5'b00000;
-    wire [4:0] ch3_txpostcursor_int = 5'b00000;
-    wire [4:0] ch4_txpostcursor_int = 5'b00000;
-    wire [4:0] ch5_txpostcursor_int = 5'b00000;
-    wire [4:0] ch6_txpostcursor_int = 5'b00000;
-    wire [4:0] ch7_txpostcursor_int = 5'b00000;
-    wire [4:0] ch8_txpostcursor_int = 5'b00000;
-    wire [4:0] ch9_txpostcursor_int = 5'b00000;
+    wire [4:0] ch0_txpostcursor_int;
+    wire [4:0] ch1_txpostcursor_int;
+    wire [4:0] ch2_txpostcursor_int;
+    wire [4:0] ch3_txpostcursor_int;
+    wire [4:0] ch4_txpostcursor_int;
+    wire [4:0] ch5_txpostcursor_int;
+    wire [4:0] ch6_txpostcursor_int;
+    wire [4:0] ch7_txpostcursor_int;
+    wire [4:0] ch8_txpostcursor_int;
+    wire [4:0] ch9_txpostcursor_int;
     assign txpostcursor_int[4:0] = ch0_txpostcursor_int;
     assign txpostcursor_int[9:5] = ch1_txpostcursor_int;
     assign txpostcursor_int[14:10] = ch2_txpostcursor_int;
@@ -289,16 +289,16 @@ module gth_transceivers_buffer_example_top (
 
     //--------------------------------------------------------------------------------------------------------------------
     wire [49:0] txprecursor_int;
-    wire [4:0] ch0_txprecursor_int = 5'b00000;
-    wire [4:0] ch1_txprecursor_int = 5'b00000;
-    wire [4:0] ch2_txprecursor_int = 5'b00000;
-    wire [4:0] ch3_txprecursor_int = 5'b00000;
-    wire [4:0] ch4_txprecursor_int = 5'b00000;
-    wire [4:0] ch5_txprecursor_int = 5'b00000;
-    wire [4:0] ch6_txprecursor_int = 5'b00000;
-    wire [4:0] ch7_txprecursor_int = 5'b00000;
-    wire [4:0] ch8_txprecursor_int = 5'b00000;
-    wire [4:0] ch9_txprecursor_int = 5'b00000;
+    wire [4:0] ch0_txprecursor_int;
+    wire [4:0] ch1_txprecursor_int;
+    wire [4:0] ch2_txprecursor_int;
+    wire [4:0] ch3_txprecursor_int;
+    wire [4:0] ch4_txprecursor_int;
+    wire [4:0] ch5_txprecursor_int;
+    wire [4:0] ch6_txprecursor_int;
+    wire [4:0] ch7_txprecursor_int;
+    wire [4:0] ch8_txprecursor_int;
+    wire [4:0] ch9_txprecursor_int;
     assign txprecursor_int[4:0] = ch0_txprecursor_int;
     assign txprecursor_int[9:5] = ch1_txprecursor_int;
     assign txprecursor_int[14:10] = ch2_txprecursor_int;
@@ -952,6 +952,50 @@ module gth_transceivers_buffer_example_top (
         ,.probe_out2 (hb0_gtwiz_reset_tx_datapath_int)
         ,.probe_out3 (hb_gtwiz_reset_rx_pll_and_datapath_vio_int)
         ,.probe_out4 (hb_gtwiz_reset_rx_datapath_vio_int)
+    );
+
+    gth_transceivers_buffer_vio_1 gth_transceivers_buffer_vio_1_inst (
+        .clk (hb_gtwiz_reset_clk_freerun_buf_int)
+        ,.probe_out0 (ch0_txdiffctrl_int)
+        ,.probe_out1 (ch1_txdiffctrl_int)
+        ,.probe_out2 (ch2_txdiffctrl_int)
+        ,.probe_out3 (ch3_txdiffctrl_int)
+        ,.probe_out4 (ch4_txdiffctrl_int)
+        ,.probe_out5 (ch5_txdiffctrl_int)
+        ,.probe_out6 (ch6_txdiffctrl_int)
+        ,.probe_out7 (ch7_txdiffctrl_int)
+        ,.probe_out8 (ch8_txdiffctrl_int)
+        ,.probe_out9 (ch9_txdiffctrl_int)
+        ,.probe_out10 (ch0_txmaincursor_int)
+        ,.probe_out11 (ch1_txmaincursor_int)
+        ,.probe_out12 (ch2_txmaincursor_int)
+        ,.probe_out13 (ch3_txmaincursor_int)
+        ,.probe_out14 (ch4_txmaincursor_int)
+        ,.probe_out15 (ch5_txmaincursor_int)
+        ,.probe_out16 (ch6_txmaincursor_int)
+        ,.probe_out17 (ch7_txmaincursor_int)
+        ,.probe_out18 (ch8_txmaincursor_int)
+        ,.probe_out19 (ch9_txmaincursor_int)
+        ,.probe_out20 (ch0_txpostcursor_int)
+        ,.probe_out21 (ch1_txpostcursor_int)
+        ,.probe_out22 (ch2_txpostcursor_int)
+        ,.probe_out23 (ch3_txpostcursor_int)
+        ,.probe_out24 (ch4_txpostcursor_int)
+        ,.probe_out25 (ch5_txpostcursor_int)
+        ,.probe_out26 (ch6_txpostcursor_int)
+        ,.probe_out27 (ch7_txpostcursor_int)
+        ,.probe_out28 (ch8_txpostcursor_int)
+        ,.probe_out29 (ch9_txpostcursor_int)
+        ,.probe_out30 (ch0_txprecursor_int)
+        ,.probe_out31 (ch1_txprecursor_int)
+        ,.probe_out32 (ch2_txprecursor_int)
+        ,.probe_out33 (ch3_txprecursor_int)
+        ,.probe_out34 (ch4_txprecursor_int)
+        ,.probe_out35 (ch5_txprecursor_int)
+        ,.probe_out36 (ch6_txprecursor_int)
+        ,.probe_out37 (ch7_txprecursor_int)
+        ,.probe_out38 (ch8_txprecursor_int)
+        ,.probe_out39 (ch9_txprecursor_int)
     );
 
 
