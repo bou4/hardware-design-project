@@ -1,8 +1,8 @@
 -- -----------------------------------------------------------------------------
 -- 'txpippm_controllers' Register Component
--- Revision: 43
+-- Revision: 45
 -- -----------------------------------------------------------------------------
--- Generated on 2019-04-23 at 11:20 (UTC) by airhdl version 2019.02.1
+-- Generated on 2019-05-04 at 11:39 (UTC) by airhdl version 2019.02.1
 -- -----------------------------------------------------------------------------
 -- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
 -- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -64,7 +64,9 @@ entity txpippm_controllers_regs is
         pulse_strobe : out std_logic; -- Strobe signal for register 'pulse' (pulsed when the register is written from the bus)
         pulse_pulse : out std_logic_vector(0 downto 0); -- Value of register 'pulse', field 'pulse'
         stepsize_strobe : out std_logic; -- Strobe signal for register 'stepsize' (pulsed when the register is written from the bus)
-        stepsize_stepsize : out std_logic_vector(4 downto 0) -- Value of register 'stepsize', field 'stepsize'
+        stepsize_stepsize : out std_logic_vector(4 downto 0); -- Value of register 'stepsize', field 'stepsize'
+        bufstatus_strobe : out std_logic; -- Strobe signal for register 'bufstatus' (pulsed when the register is read from the bus)
+        bufstatus_bufstatus : in std_logic_vector(19 downto 0) -- Value of register 'bufstatus', field 'bufstatus'
     );
 end entity txpippm_controllers_regs;
 
@@ -97,12 +99,15 @@ architecture RTL of txpippm_controllers_regs is
     signal s_reg_pulse_pulse_r : std_logic_vector(0 downto 0);
     signal s_stepsize_strobe_r : std_logic;
     signal s_reg_stepsize_stepsize_r : std_logic_vector(4 downto 0);
+    signal s_bufstatus_strobe_r : std_logic;
+    signal s_reg_bufstatus_bufstatus : std_logic_vector(19 downto 0);
 
 begin
 
     ----------------------------------------------------------------------------
     -- Inputs
     --
+    s_reg_bufstatus_bufstatus <= bufstatus_bufstatus;
 
     ----------------------------------------------------------------------------
     -- Read-transaction FSM
@@ -129,10 +134,12 @@ begin
             s_axi_rresp_r      <= (others => '0');
             s_axi_araddr_reg_r <= (others => '0');
             s_axi_rdata_r      <= (others => '0');
+            s_bufstatus_strobe_r <= '0';
  
         elsif rising_edge(axi_aclk) then
             -- Default values:
             s_axi_arready_r <= '0';
+            s_bufstatus_strobe_r <= '0';
 
             case v_state_r is
 
@@ -175,6 +182,13 @@ begin
                     if s_axi_araddr_reg_r = resize(unsigned(BASEADDR) + STEPSIZE_OFFSET, AXI_ADDR_WIDTH) then
                         v_addr_hit := true;
                         v_rdata_r(4 downto 0) := s_reg_stepsize_stepsize_r;
+                        v_state_r := READ_RESPONSE;
+                    end if;
+                    -- register 'bufstatus' at address offset 0x10 
+                    if s_axi_araddr_reg_r = resize(unsigned(BASEADDR) + BUFSTATUS_OFFSET, AXI_ADDR_WIDTH) then
+                        v_addr_hit := true;
+                        v_rdata_r(19 downto 0) := s_reg_bufstatus_bufstatus;
+                        s_bufstatus_strobe_r <= '1';
                         v_state_r := READ_RESPONSE;
                     end if;
                     --
@@ -423,5 +437,6 @@ begin
     pulse_pulse <= s_reg_pulse_pulse_r;
     stepsize_strobe <= s_stepsize_strobe_r;
     stepsize_stepsize <= s_reg_stepsize_stepsize_r;
+    bufstatus_strobe <= s_bufstatus_strobe_r;
 
 end architecture RTL;

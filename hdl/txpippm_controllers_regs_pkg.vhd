@@ -1,8 +1,8 @@
 -- -----------------------------------------------------------------------------
 -- 'txpippm_controllers' Register Definitions
--- Revision: 43
+-- Revision: 45
 -- -----------------------------------------------------------------------------
--- Generated on 2019-04-23 at 11:20 (UTC) by airhdl version 2019.02.1
+-- Generated on 2019-05-04 at 11:39 (UTC) by airhdl version 2019.02.1
 -- -----------------------------------------------------------------------------
 -- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
 -- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -59,7 +59,7 @@ package txpippm_controllers_regs_pkg is
 
 
     -- Revision number of the 'txpippm_controllers' register map
-    constant TXPIPPM_CONTROLLERS_REVISION : natural := 43;
+    constant TXPIPPM_CONTROLLERS_REVISION : natural := 45;
 
     -- Default base address of the 'txpippm_controllers' register map 
     constant TXPIPPM_CONTROLLERS_DEFAULT_BASEADDR : unsigned(31 downto 0) := unsigned'(x"00000000");
@@ -87,5 +87,11 @@ package txpippm_controllers_regs_pkg is
     constant STEPSIZE_STEPSIZE_BIT_OFFSET : natural := 0; -- bit offset of the 'stepsize' field
     constant STEPSIZE_STEPSIZE_BIT_WIDTH : natural := 5; -- bit width of the 'stepsize' field
     constant STEPSIZE_STEPSIZE_RESET : std_logic_vector(4 downto 0) := std_logic_vector'("00000"); -- reset value of the 'stepsize' field
+    
+    -- Register 'bufstatus'
+    constant BUFSTATUS_OFFSET : unsigned(31 downto 0) := unsigned'(x"00000010"); -- address offset of the 'bufstatus' register
+    constant BUFSTATUS_BUFSTATUS_BIT_OFFSET : natural := 0; -- bit offset of the 'bufstatus' field
+    constant BUFSTATUS_BUFSTATUS_BIT_WIDTH : natural := 20; -- bit width of the 'bufstatus' field
+    constant BUFSTATUS_BUFSTATUS_RESET : std_logic_vector(19 downto 0) := std_logic_vector'("00000000000000000000"); -- reset value of the 'bufstatus' field
 
 end txpippm_controllers_regs_pkg;
