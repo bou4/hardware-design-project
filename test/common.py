@@ -1,3 +1,7 @@
+# Time access and conversions
+import time
+import datetime
+
 # Control measurement devices
 import visa
 
@@ -16,6 +20,8 @@ class Instrument():
 
         self.reset()
         self.clear_status()
+
+        time.sleep(0.1)
 
     def get_identification_string(self):
         return ''

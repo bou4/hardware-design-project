@@ -15,9 +15,9 @@ oscilloscope.timebase_precision_radio_frequency('2E9')
 oscilloscope.timebase_precision('ON')
 oscilloscope.timebase_scale('100E-12')
 oscilloscope.channel_display(3, 'ON')
-oscilloscope.channel_scale(3, 100E-3)
+oscilloscope.channel_scale(3, 50E-3)
 oscilloscope.channel_display(4, 'ON')
-oscilloscope.channel_scale(4, 100E-3)
+oscilloscope.channel_scale(4, 50E-3)
 oscilloscope.measure_define_deltatime('RISING', 1, 'MIDDLE', 'RISING', 1, 'MIDDLE')
 
 ## Multimeter
