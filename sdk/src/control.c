@@ -64,6 +64,8 @@ const scpi_command_t scpi_commands[] =
 	{ .pattern = "TRANSceivers:SELect"           , .callback = Transceivers_Select           , },
 	{ .pattern = "TRANSceivers:SELect?"          , .callback = Transceivers_SelectQ          , },
 	{ .pattern = "TRANSceivers:PHASe"            , .callback = Transceivers_Phase            , },
+	{ .pattern = "TRANSceivers:STATus?"          , .callback = Transceivers_StatusQ          , },
+	{ .pattern = "TRANSceivers:SYNChronize"      , .callback = Transceivers_Synchronize      , },
 
 	SCPI_CMD_LIST_END
 };
