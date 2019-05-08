@@ -90,3 +90,9 @@ class FPGA(Instrument):
     
     def transceivers_phase(self, value):
         self.resource.write('TRANSceivers:PHASe {}'.format(value))
+
+    def transceivers_status_query(self):
+        return int(self.resource.query('TRANSceivers:STATus?'))
+    
+    def transceivers_synchronize(self):
+        self.resource.write('TRANSceivers:SYNChronize')

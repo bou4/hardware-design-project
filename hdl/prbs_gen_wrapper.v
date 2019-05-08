@@ -1,7 +1,7 @@
 module prbs_gen_wrapper #(
     parameter size = 32,
     parameter length = 7,
-    parameter [0:length-1] primpoly = 7'b1100000
+    parameter [0:length-1] primpoly = 0
 ) (
     input  wire gtwiz_userclk_tx_usrclk2_in,
     input  wire gtwiz_reset_all_in,

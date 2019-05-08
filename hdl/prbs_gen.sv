@@ -3,7 +3,7 @@ module prbs_gen(clk, reset, dout);
     parameter length = 7;
 
     // dec2bin(primpoly(length,'min','nodisplay')) or Xilinx app note XAPP052 or http://en.wikipedia.org/wiki/Linear_feedback_shift_register    
-    parameter [0:length-1] primpoly = 7'b1100000;
+    parameter [0:length-1] primpoly = 0;
 
     input clk;
     input reset;
