@@ -1,1 +1,1 @@
-CALL C:\Xilinx\Vivado\2018.3\settings64.bat
+CALL C:\Xilinx\Vivado\2019.2\settings64.bat
